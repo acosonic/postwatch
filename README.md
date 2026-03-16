@@ -10,11 +10,27 @@ Monitors Postfix email sending rate and sends a Telegram alert when the volume e
 - Repeats alerts at most once every `COOLDOWN_SECONDS` to avoid notification spam
 - Sends a startup confirmation message on service start
 
+## Example
+
+![Telegram alert example](2026-03-16_17-37.png)
+
 ## Requirements
 
 - Linux with Postfix
 - Python 3.6+
-- A Telegram bot (create one via [@BotFather](https://t.me/BotFather))
+- A Telegram bot (see setup instructions below)
+
+## Creating a Telegram bot
+
+1. Open Telegram and search for **@BotFather**
+2. Send `/newbot`
+3. Choose a **name** for your bot (e.g. "Postwatch Alerts")
+4. Choose a **username** for your bot (must end in `bot`, e.g. `postwatch_alerts_bot`)
+5. BotFather will reply with your **bot token** — save it for `TELEGRAM_BOT_TOKEN`
+6. To get your **chat ID**:
+   - Send any message to your new bot
+   - Open `https://api.telegram.org/bot<YOUR_TOKEN>/getUpdates` in a browser
+   - Look for `"chat":{"id":123456789}` in the response — that number is your `TELEGRAM_CHAT_ID`
 
 ## Installation
 
