@@ -16,11 +16,22 @@ Monitors Postfix email sending rate and sends a Telegram alert when the volume e
 
 | Command | Description |
 |---------|-------------|
-| `/subscribe` | Start receiving email volume alerts |
-| `/unsubscribe` | Stop receiving alerts |
-| `/status` | Show current threshold settings and subscriber count |
+| `/subscribe` | Start receiving Telegram alerts |
+| `/unsubscribe` | Stop receiving Telegram alerts |
+| `/subscribe user@example.com` | Add an email address to alerts |
+| `/unsubscribe user@example.com` | Remove an email address from alerts |
+| `/status` | Show threshold settings and subscriber counts |
+| `/list` | List all subscribers (admin only) |
 
 The admin chat ID set in `TELEGRAM_CHAT_ID` always receives alerts and cannot unsubscribe.
+
+Email addresses can also be added directly to `subscribers.json`:
+```json
+{
+  "telegram": ["123456789"],
+  "email": ["ops@example.com", "admin@example.com"]
+}
+```
 
 ## Example
 
@@ -84,6 +95,9 @@ All settings are in `.env`:
 | `THRESHOLD` | `10` | Max emails allowed within the window before alerting |
 | `WINDOW_SECONDS` | `60` | Sliding window size in seconds |
 | `COOLDOWN_SECONDS` | `300` | Minimum seconds between repeated alerts |
+| `ALERT_FROM_EMAIL` | `postwatch@hostname` | From address for email alerts |
+| `SMTP_HOST` | `localhost` | SMTP server for sending email alerts |
+| `SMTP_PORT` | `25` | SMTP port |
 
 After changing `.env`, restart the service:
 ```bash
