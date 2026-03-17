@@ -9,6 +9,18 @@ Monitors Postfix email sending rate and sends a Telegram alert when the volume e
 - Fires a Telegram alert when the count exceeds `THRESHOLD` within `WINDOW_SECONDS`
 - Repeats alerts at most once every `COOLDOWN_SECONDS` to avoid notification spam
 - Sends a startup confirmation message on service start
+- Supports multiple subscribers — users self-register via bot commands
+- Subscriber list is persisted in `subscribers.json`
+
+## Bot commands
+
+| Command | Description |
+|---------|-------------|
+| `/subscribe` | Start receiving email volume alerts |
+| `/unsubscribe` | Stop receiving alerts |
+| `/status` | Show current threshold settings and subscriber count |
+
+The admin chat ID set in `TELEGRAM_CHAT_ID` always receives alerts and cannot unsubscribe.
 
 ## Example
 
@@ -68,7 +80,7 @@ All settings are in `.env`:
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `TELEGRAM_BOT_TOKEN` | — | Bot token from @BotFather |
-| `TELEGRAM_CHAT_ID` | — | Telegram user or chat ID to receive alerts |
+| `TELEGRAM_CHAT_ID` | — | Admin chat ID — always receives alerts, cannot unsubscribe |
 | `THRESHOLD` | `10` | Max emails allowed within the window before alerting |
 | `WINDOW_SECONDS` | `60` | Sliding window size in seconds |
 | `COOLDOWN_SECONDS` | `300` | Minimum seconds between repeated alerts |
