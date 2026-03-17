@@ -1,0 +1,16 @@
+[Unit]
+Description=Email rate monitor - Telegram alert when >10 emails/min
+After=network.target postfix.service
+Wants=postfix.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/postwatch/email_monitor.py
+Restart=always
+RestartSec=10
+User=root
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
